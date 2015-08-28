@@ -30,6 +30,7 @@ exports.setup = ({nesh}) ->
               try
                   result = compiler.compile code
                   global.exports = module.exports
+                  global.pprint = (x) -> console.dir x, colors: true
                   output = vm.runInThisContext(result.code, {filename})
               catch e
                 err = e
