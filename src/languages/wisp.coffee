@@ -1,6 +1,8 @@
 ###
-ES6/7 language component for Nesh, the Node.js enhanced shell.
+Wisp homoiconic Clojure-like to JavaScript transpiler
+language component for Nesh, the Node.js enhanced shell.
 ###
+
 require 'colors'
 
 wisp = require 'wisp'
@@ -12,9 +14,9 @@ vm = require 'vm'
 exports.setup = ({nesh}) ->
     log.debug 'Loading Wisp, Homoiconic JavaScript with Node.js'
 
-    # Set the compile function to convert CoffeeScript -> bare Javascript
+    # Set the compile function to convert Wisp -> bare Javascript
     nesh.compile = (data) ->
-        babel.transform data
+        compiler.compile data
 
     # Import the CoffeeScript REPL, which handles individual line commands
     nesh.repl =
@@ -27,6 +29,7 @@ exports.setup = ({nesh}) ->
               output = null
               try
                   result = compiler.compile code
+                  global.exports = module.exports
                   output = vm.runInThisContext(result.code, {filename})
               catch e
                 err = e
@@ -38,12 +41,8 @@ exports.setup = ({nesh}) ->
 
           repl = require('repl').start opts
 
-    # Add the CoffeeScript version to the system's list of versions
-    process.versions['babel'] = babel.version
-
     # Set the default welcome message to include the CoffeeScript version
-    nesh.defaults.welcome = "(console.log \"Welcome\")"
-    #"Wisp #{babel.version} on Node #{process.version}\nType " + '.help'.cyan + ' for more information'
+    nesh.defaults.welcome = "Wondereous " + "wisp".cyan  + " REPL"
 
     # Set the CoffeeScript prompt
     nesh.defaults.prompt = 'wisp> '

@@ -47,7 +47,8 @@
     "lodash-node": "^3.9.3",
     "optimist": ">=0.3.5 <1",
     "semver": "^4.3.6",
-    "underscore": ">=1.4 <2"
+    "underscore": ">=1.4 <2",
+    "wisp": "^0.10.0"
   },
   "peerDependencies": {
     "coffee-script": ">=1.6.2 <2"
